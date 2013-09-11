@@ -78,22 +78,7 @@ module PrismPay
     # ###########################################################
 
     def cc_purchase(amount, creditcard, subid, options ={})
-      # process a credit card sale and right now return the savon response
-      # The savon response needs to be mapped back into the proper response 
-      # fields 
-      
-      # need to merge the gateway instance options with the options
 
-      # response = @client.request :process_cc_sale do 
-      abort("Message goes here :D") 
-      response = @client.request 'processCCSale' do
-        http.open_timeout=30
-        http.read_timeout=30
-        http.auth.ssl.verify_mode = :none
-        soap.body &build_cc_sale_auth(amount, creditcard, subid, options)
-      end
-
-      PrismCreditResponse.new(response)
 
     end
 
