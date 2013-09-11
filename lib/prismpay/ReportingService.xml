@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="https://trans.myprismpay.com/report/services/ReportingServices" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="https://trans.myprismpay.com/report/services/ReportingServices" xmlns:intf="https://trans.myprismpay.com/report/services/ReportingServices" xmlns:tns1="urn:ReportingProcess" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="urn:ReportingProcess" xmlns="http://www.w3.org/2001/XMLSchema">
+   <complexType name="LimitToDate">
+    <sequence>
+     <element name="month" type="xsd:int"/>
+     <element name="day" type="xsd:int"/>
+     <element name="year" type="xsd:int"/>
+     <element name="hour" type="xsd:int"/>
+     <element name="minute" type="xsd:int"/>
+     <element name="second" type="xsd:int"/>
+     <element name="ampm" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="LimitToCards">
+    <sequence>
+     <element name="visa" type="xsd:int"/>
+     <element name="mastercard" type="xsd:int"/>
+     <element name="amex" type="xsd:int"/>
+     <element name="discovernetwork" type="xsd:int"/>
+     <element name="jcb" type="xsd:int"/>
+     <element name="diners" type="xsd:int"/>
+     <element name="debit" type="xsd:int"/>
+     <element name="flyingj" type="xsd:int"/>
+     <element name="cfna" type="xsd:int"/>
+     <element name="gemoney" type="xsd:int"/>
+     <element name="fleetone" type="xsd:int"/>
+     <element name="fuellnk" type="xsd:int"/>
+     <element name="fuelman" type="xsd:int"/>
+     <element name="mastercardfleet" type="xsd:int"/>
+     <element name="visafleet" type="xsd:int"/>
+     <element name="voyager" type="xsd:int"/>
+     <element name="wrightexpress" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="LimitToTransTypes">
+    <sequence>
+     <element name="ccpreauths" type="xsd:int"/>
+     <element name="ccpostauthsales" type="xsd:int"/>
+     <element name="ccvoids" type="xsd:int"/>
+     <element name="ccrefunds" type="xsd:int"/>
+     <element name="ccchargebacks" type="xsd:int"/>
+     <element name="achpreauths" type="xsd:int"/>
+     <element name="achsettlements" type="xsd:int"/>
+     <element name="achreturns" type="xsd:int"/>
+     <element name="achnocs" type="xsd:int"/>
+     <element name="achvoids" type="xsd:int"/>
+     <element name="achcreditsauth" type="xsd:int"/>
+     <element name="achcreditsmerchantdebit" type="xsd:int"/>
+     <element name="achcreditsdebitreturn" type="xsd:int"/>
+     <element name="achcreditsmerchantsettle" type="xsd:int"/>
+     <element name="achcreditspaymentsettle" type="xsd:int"/>
+     <element name="achcreditsreturn" type="xsd:int"/>
+     <element name="debitsales" type="xsd:int"/>
+     <element name="debitrefunds" type="xsd:int"/>
+     <element name="achlatereturns" type="xsd:int"/>
+     <element name="extachpreauths" type="xsd:int"/>
+     <element name="extachsettlements" type="xsd:int"/>
+     <element name="extachreturns" type="xsd:int"/>
+     <element name="extachnocs" type="xsd:int"/>
+     <element name="extachvoids" type="xsd:int"/>
+     <element name="extachcreditsauth" type="xsd:int"/>
+     <element name="extachcreditssettle" type="xsd:int"/>
+     <element name="extachcreditsreturn" type="xsd:int"/>
+     <element name="extachck21_auth" type="xsd:int"/>
+     <element name="extachck21_void" type="xsd:int"/>
+     <element name="extachck21_return" type="xsd:int"/>
+     <element name="verfication" type="xsd:int"/>
+     <element name="ccincremental" type="xsd:int"/>
+     <element name="ccreversal" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <element name="TransactionReportInfo">
+    <complexType>
+     <sequence>
+      <element name="accountkey" type="xsd:string"/>
+      <element name="sessionkey" type="xsd:string"/>
+      <element name="subid" type="xsd:string"/>
+      <element name="startdate" type="tns1:LimitToDate"/>
+      <element name="enddate" type="tns1:LimitToDate"/>
+      <element name="cardtypes" nillable="true" type="tns1:LimitToCards"/>
+      <element name="transactiontypes" type="tns1:LimitToTransTypes"/>
+      <element name="limitbycard" type="xsd:int"/>
+      <element name="limitbytranstypes" type="xsd:int"/>
+      <element name="childsubids" type="xsd:int"/>
+      <element name="accepted" type="xsd:int"/>
+      <element name="declined" type="xsd:int"/>
+      <element name="test" type="xsd:int"/>
+      <element name="initial" type="xsd:int"/>
+      <element name="recurring" type="xsd:int"/>
+      <element name="recurringonly" type="xsd:int"/>
+      <element name="recurringretries" type="xsd:int"/>
+      <element name="sort" type="xsd:int"/>
+      <element name="maxrows" type="xsd:int"/>
+      <element name="startrow" type="xsd:int"/>
+      <element name="numrows" type="xsd:int"/>
+      <element name="currency" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="TransactionReportResult">
+    <complexType>
+     <sequence>
+      <element name="TransactionReportDetails" nillable="true">
+       <complexType>
+        <sequence>
+         <any/>
+        </sequence>
+       </complexType>
+      </element>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="TransactionReportRequest">
+
+      <wsdl:part element="tns1:TransactionReportInfo" name="TransactionReportInfo"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="TransactionReportResponse">
+
+      <wsdl:part element="tns1:TransactionReportResult" name="TransactionReportResult"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="ReportingServices">
+
+      <wsdl:operation name="TransactionReport" parameterOrder="TransactionReportInfo">
+
+         <wsdl:input message="impl:TransactionReportRequest" name="TransactionReportRequest"/>
+
+         <wsdl:output message="impl:TransactionReportResponse" name="TransactionReportResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="ReportingServicesSoapBinding" type="impl:ReportingServices">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="TransactionReport">
+
+         <wsdlsoap:operation soapAction="TransactionReport"/>
+
+         <wsdl:input name="TransactionReportRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="TransactionReportResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="ReportingService">
+
+      <wsdl:port binding="impl:ReportingServicesSoapBinding" name="ReportingServices">
+
+         <wsdlsoap:address location="https://trans.myprismpay.com/report/services/ReportingServices"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

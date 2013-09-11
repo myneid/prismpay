@@ -1,0 +1,51 @@
+# This file is an example of what configuration options are available
+# for each instance of a PrismPay::Webpay object.  
+
+# required options will are "form_ids, login, session_id, key". The
+# form_ids should be a hash comprised of a list of keys containing cgi
+# actions that are containing a hash comprised of a formid key and a
+# postback url value pair both the formid and postback_url should be
+# in their unencrypted form
+
+# form_ids:
+#  cgi_action1:
+#    formid1: postback_url1
+#  cgi_action2:
+#    formid2: postback_url2
+#  cgi_action3:
+#    formid3: postback_url3
+
+############################################################
+# Example file
+############################################################
+# login: TEST0
+# session_id: BC12D2A03254
+# password: mypassword
+# key: AF123ABC32
+# subid: mysubid
+# form_ids:
+#  profile_add:
+#   15023: http://dummy.domain/cgi_path
+#  cc_sale: 
+#   20000: http://another.dummy.domain/another_cgi_path
+############################################################
+
+login: TEST0
+session_id:                     # don't leave it blank use hexstr
+key:                            # don't leave blank use hexstr
+#password:                       # if you have one use it
+#subid:                          # if you have one use it
+
+##########################################################
+# You can get your unencrypted form_ids by calling
+# PrismPay::Webpay.get_formid(hexstr) 
+# the postback_urls you will need
+# to setup in your prismpay webpay form creation tool
+##########################################################
+form_ids:
+  profile_add: 
+    #profile_add_formid: profile_add_postback_url
+  cc_sale:
+    #cc_sale_formid: cc_sale_postback_url
+
+
