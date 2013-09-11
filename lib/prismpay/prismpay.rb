@@ -85,6 +85,7 @@ module PrismPay
       # need to merge the gateway instance options with the options
 
       # response = @client.request :process_cc_sale do 
+      abort("Message goes here :D") 
       response = @client.request 'processCCSale' do
         http.open_timeout=30
         http.read_timeout=30
@@ -447,8 +448,8 @@ module PrismPay
           #   xml.emailsubject "Transaction Service Test"
           #   xml.emailtext "This is just a test"
           # }
-          abort("Message goes here :D") 
-          if recurring == 1
+          #abort("Message goes here :D") 
+          #if recurring == 1
            xml.recurring("xsi:type" => "urn:Recur") { #nees method
              xml.create 1
              xml.billingcycle 2
@@ -456,7 +457,7 @@ module PrismPay
              xml.start 1
              xml.amount amount
            }
-          end 
+          #end 
           xml.memo options[:memo] if options[:memo]
           xml.ipaddress options[:ip]  # req field ... nil if !(exists?)
           # xml.accttype ---> #have no clue
