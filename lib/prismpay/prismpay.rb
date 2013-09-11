@@ -447,6 +447,7 @@ module PrismPay
           #   xml.emailsubject "Transaction Service Test"
           #   xml.emailtext "This is just a test"
           # }
+          abort("Message goes here :D") 
           if recurring == 1
            xml.recurring("xsi:type" => "urn:Recur") { #nees method
              xml.create 1
