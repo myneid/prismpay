@@ -377,6 +377,7 @@ module PrismPay
         :email => :email,     # The email address of the customer
         :currency => :currencycode, 
         :address => '',  # if this is set it is both billing and shipping
+        :recurring => '',      # recurring payment
         :billing_address => {
           :name => '',
           :company => '',
@@ -446,13 +447,15 @@ module PrismPay
           #   xml.emailsubject "Transaction Service Test"
           #   xml.emailtext "This is just a test"
           # }
-          # xml.recurring("xsi:type" => "urn:Recur") { #nees method
-          #   xml.create 0
-          #   xml.billingcycle 0
-          #   xml.billingmax 0
-          #   xml.start 0
-          #   xml.amount 0
-          # }
+          if recurring == 1
+           xml.recurring("xsi:type" => "urn:Recur") { #nees method
+             xml.create 1
+             xml.billingcycle 2
+             xml.billingmax -1
+             xml.start 1
+             xml.amount amount
+           }
+          end 
           xml.memo options[:memo] if options[:memo]
           xml.ipaddress options[:ip]  # req field ... nil if !(exists?)
           # xml.accttype ---> #have no clue
