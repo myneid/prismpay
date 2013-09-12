@@ -78,7 +78,22 @@ module PrismPay
     # ###########################################################
 
     def cc_purchase(amount, creditcard, subid, options ={})
+      # process a credit card sale and right now return the savon response
+      # The savon response needs to be mapped back into the proper response 
+      # fields 
+      
+      # need to merge the gateway instance options with the options
 
+      # response = @client.request :process_cc_sale do 
+      #abort("Message goes here :D") 
+      response = @client.request 'processCCSale' do
+        http.open_timeout=30
+        http.read_timeout=30
+        http.auth.ssl.verify_mode = :none
+        soap.body &build_cc_sale_auth(amount, creditcard, subid, options)
+      end
+
+      PrismCreditResponse.new(response)
 
     end
 
@@ -265,6 +280,18 @@ module PrismPay
         }"
     end
 
+    def build_recur(recur)
+
+      retstr = 
+        "xml.recurring('xsi:type' => 'urn:Recur'){
+             xml.create '#{recur[:create]}'
+             xml.billingcycle '#{recur[:billingcycle]}'
+             xml.billingmax '#{recur[:billingmax]}'
+             xml.start '#{recur[:start]}'
+             xml.amount '#{recur[:amount]}'
+           }"
+    end
+
     def build_profile_retrieve(options = {})
       xml_block = Proc.new { |xml|
         xml.miscprocess("xsi:type" => "urn:ProfileRetrieve"){ 
@@ -350,7 +377,8 @@ module PrismPay
         :number => '',
         :type => '',
         :verification_value => '', 
-        :year => ''
+        :year => '',
+        :recur => ''
       }
 
       active_merchant_option_map = {
@@ -363,7 +391,13 @@ module PrismPay
         :email => :email,     # The email address of the customer
         :currency => :currencycode, 
         :address => '',  # if this is set it is both billing and shipping
-        :recurring => '',      # recurring payment
+        :recur => { # recurring payment
+          :create => '',
+          :billingcycle => '',
+          :billingmax => '',
+          :start => '',
+          :amount => amount,
+        },     
         :billing_address => {
           :name => '',
           :company => '',
@@ -433,8 +467,10 @@ module PrismPay
           #   xml.emailsubject "Transaction Service Test"
           #   xml.emailtext "This is just a test"
           # }
-          #abort("Message goes here :D") 
-          #if recurring == 1
+          #abort(options.recurring)  
+          #abort(options[:recur])
+          
+          if credit_card.recur.to_s == "1"
            xml.recurring("xsi:type" => "urn:Recur") { #nees method
              xml.create 1
              xml.billingcycle 2
@@ -442,7 +478,7 @@ module PrismPay
              xml.start 1
              xml.amount amount
            }
-          #end 
+          end 
           xml.memo options[:memo] if options[:memo]
           xml.ipaddress options[:ip]  # req field ... nil if !(exists?)
           # xml.accttype ---> #have no clue
@@ -647,7 +683,7 @@ module PrismPay
   class CreditCard
     # credit card information... mimic ActiveMerchant
     attr_accessor :number, :month, :year, :first_name, 
-    :verification_value, :type, :last_name
+    :verification_value, :type, :last_name, :recur
 
     def [](method)
       eval ("self.#{method}")
@@ -675,6 +711,7 @@ module PrismPay
         @name = ccinfo[:name] if ccinfo.has_key?(:name)
         @verification_value = ccinfo[:verification_value] if ccinfo.has_key?(:verification_value)
         @type = ccinfo[:type] if ccinfo.has_key?(:type)
+        @recur = ccinfo[:recur] if ccinfo.has_key?(:recur)
       end
     end
   end # CreditCard
