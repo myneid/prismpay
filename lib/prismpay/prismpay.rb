@@ -468,9 +468,9 @@ module PrismPay
           #   xml.emailtext "This is just a test"
           # }
           #abort(options.recurring)  
-          #abort(options[:recur])
           
-          if credit_card.recur.to_s == "1"
+          
+          if credit_card.recur.to_s == '1'
            xml.recurring("xsi:type" => "urn:Recur") { #nees method
              xml.create 1
              xml.billingcycle 2
@@ -478,6 +478,8 @@ module PrismPay
              xml.start 1
              xml.amount amount
            }
+          else
+            #abort(credit_card.recur.to_s)
           end 
           xml.memo options[:memo] if options[:memo]
           xml.ipaddress options[:ip]  # req field ... nil if !(exists?)
