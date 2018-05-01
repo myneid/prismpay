@@ -16,7 +16,7 @@ Gem::Specification.new do |gem|
   gem.files = Dir["{lib}/**/*"] + ["README.md"]
   gem.test_files = Dir["spec/**/*"]
   
-  gem.add_dependency 'activemerchant', '1.20.4'
+  gem.add_dependency 'activemerchant', '1.77.0'
   gem.add_dependency 'savon', '~> 1.0.0'
 end
 
