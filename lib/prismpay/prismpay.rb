@@ -97,7 +97,16 @@ module PrismPay
 
     end
 
+	def cc_add_cardonfile(amount, creditcard, subid, options = {})
+	response = @client.request 'AddCOF' do
+        http.open_timeout=30
+        http.read_timeout=30
+        http.auth.ssl.verify_mode = :none
+        soap.body &build_cc_sale_auth(amount, creditcard, subid, options)
+      end
 
+      PrismCreditResponse.new(response)
+	end
     def cc_token_purchase(amount, creditcard, subid, options ={})
       # process a credit card sale and right now return the savon response
       # The savon response needs to be mapped back into the proper response 
