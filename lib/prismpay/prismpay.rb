@@ -88,7 +88,7 @@ module PrismPay
       # response = @client.request :process_cc_sale do 
       #abort("Message goes here :D") 
       #response = @client.request 'processCCSale' do
-      response = @client.call :processCCSale do
+      response = @client.call :credit_sale_soap do
         http.open_timeout=30
         http.read_timeout=30
         http.auth.ssl.verify_mode = :none
