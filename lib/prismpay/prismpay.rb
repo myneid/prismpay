@@ -31,7 +31,8 @@ module PrismPay
         @password = merchant_info[:password] if merchant_info.has_key?(:password)
       end
 
-      @client = Savon::Client.new(WSDL) # initialize savon client
+      #@client = Savon::Client.new(WSDL) # initialize savon client
+      @client = Savon.client(wsdl: WSDL)
     end
 
     
